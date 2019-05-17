@@ -1,0 +1,154 @@
+C51 COMPILER V9.59.0.0   MAIN                                                              05/17/2019 10:01:31 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\KEILC51\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          /////////////////////////////////////
+   2          //  Generated Initialization File  //
+   3          /////////////////////////////////////
+   4          #include "c8051f330.h"
+   5          //input
+   6          sbit AGC_1dB = P2^3;
+   7          sbit AGC_2dB = P2^2;
+   8          sbit AGC_4dB = P2^1;
+   9          sbit AGC_8dB = P2^0;
+  10          sbit AGC_16dB = P1^7;
+  11          sbit AGC_32dB = P1^6;
+  12          sbit AGC_64dB = P1^5;
+  13          //output
+  14          sbit A1_1dB = P1^0;
+  15          sbit A1_2dB = P1^1;
+  16          sbit A1_4dB = P1^2;
+  17          sbit A1_8dB = P1^3;
+  18          sbit A1_16dB = P1^4;
+  19          sbit A2_31dB = P0^5;
+  20          sbit A3_1dB = P0^0;
+  21          sbit A3_2dB = P0^1;
+  22          sbit A3_4dB = P0^2;
+  23          sbit A3_8dB = P0^3;
+  24          sbit A3_16dB = P0^4;
+  25          
+  26          // Peripheral specific initialization functions,
+  27          // Called from the Init_Device() function
+  28          void Port_IO_Init()
+  29          {
+  30   1          // P0.0  -  Unassigned,  Push-Pull,  Digital
+  31   1          // P0.1  -  Unassigned,  Push-Pull,  Digital
+  32   1          // P0.2  -  Unassigned,  Push-Pull,  Digital
+  33   1          // P0.3  -  Unassigned,  Push-Pull,  Digital
+  34   1          // P0.4  -  Unassigned,  Push-Pull,  Digital
+  35   1          // P0.5  -  Unassigned,  Push-Pull,  Digital
+  36   1          // P0.6  -  Unassigned,  Open-Drain, Digital
+  37   1          // P0.7  -  Unassigned,  Open-Drain, Digital
+  38   1      
+  39   1          // P1.0  -  Unassigned,  Push-Pull,  Digital
+  40   1          // P1.1  -  Unassigned,  Push-Pull,  Digital
+  41   1          // P1.2  -  Unassigned,  Push-Pull,  Digital
+  42   1          // P1.3  -  Unassigned,  Push-Pull,  Digital
+  43   1          // P1.4  -  Unassigned,  Push-Pull,  Digital
+  44   1          // P1.5  -  Unassigned,  Open-Drain, Digital
+  45   1          // P1.6  -  Unassigned,  Open-Drain, Digital
+  46   1          // P1.7  -  Unassigned,  Open-Drain, Digital
+  47   1      
+  48   1          // P2.0  -  Unassigned,  Open-Drain, Digital
+  49   1          // P2.1  -  Unassigned,  Open-Drain, Digital
+  50   1          // P2.2  -  Unassigned,  Open-Drain, Digital
+  51   1          // P2.3  -  Unassigned,  Open-Drain, Digital
+  52   1      
+  53   1          P0MDOUT   = 0x3F;
+  54   1          P1MDOUT   = 0x1F;
+C51 COMPILER V9.59.0.0   MAIN                                                              05/17/2019 10:01:31 PAGE 2   
+
+  55   1          XBR1      = 0x40;
+  56   1      }
+  57          
+  58          void Oscillator_Init()
+  59          {
+  60   1          OSCICN    = 0x83;
+  61   1      }
+  62          
+  63          // Initialization function for device,
+  64          // Call Init_Device() from your main program
+  65          void Init_Device(void)
+  66          {
+  67   1          Port_IO_Init();
+  68   1          Oscillator_Init();
+  69   1      }
+  70          int main(void)
+  71          {
+  72   1        unsigned char Agc_Val = 0;
+  73   1        Init_Device();
+  74   1        while(1)
+  75   1        {
+  76   2          Agc_Val = (unsigned char)AGC_1dB | ((unsigned char)AGC_2dB << 2) | ((unsigned char)AGC_4dB << 2) | ((uns
+             -igned char)AGC_8dB << 3) |
+  77   2                   ((unsigned char)AGC_16dB << 4) | ((unsigned char)AGC_32dB << 5) | ((unsigned char)AGC_64dB << 6);
+             -                       
+  78   2          if(Agc_Val <= 31)
+  79   2          {
+  80   3            A1_1dB = Agc_Val & 0x01 ? 1 : 0;
+  81   3            A1_2dB = Agc_Val & 0x01 ? 1 : 0;
+  82   3            A1_4dB = Agc_Val & 0x01 ? 1 : 0;
+  83   3            A1_8dB = Agc_Val & 0x01 ? 1 : 0;
+  84   3            A1_16dB = Agc_Val & 0x01 ? 1 : 0;
+  85   3            
+  86   3            A2_31dB =  0;
+  87   3            A3_1dB =  0;
+  88   3            A3_2dB =  0;
+  89   3            A3_4dB =  0;
+  90   3            A3_8dB =  0;
+  91   3            A3_16dB = 0;  
+  92   3          }
+  93   2          else if (Agc_Val <= 62)
+  94   2          {
+  95   3            A1_1dB =  (Agc_Val - 31) & 0x01 ? 1 : 0;
+  96   3            A1_2dB =  (Agc_Val - 31) & 0x01 ? 1 : 0;
+  97   3            A1_4dB =  (Agc_Val - 31) & 0x01 ? 1 : 0;
+  98   3            A1_8dB =  (Agc_Val - 31) & 0x01 ? 1 : 0;
+  99   3            A1_16dB = (Agc_Val - 31) & 0x01 ? 1 : 0;  
+ 100   3            A2_31dB =  1; //31db
+ 101   3            
+ 102   3            A3_1dB =  0;
+ 103   3            A3_2dB =  0;
+ 104   3            A3_4dB =  0;
+ 105   3            A3_8dB =  0;
+ 106   3            A3_16dB = 0;
+ 107   3          }
+ 108   2          else
+ 109   2          {
+ 110   3            A1_1dB  =  1;
+ 111   3            A1_2dB  =  1;
+ 112   3            A1_4dB  =  1;
+ 113   3            A1_8dB  =  1;
+ 114   3            A1_16dB =  1; 
+C51 COMPILER V9.59.0.0   MAIN                                                              05/17/2019 10:01:31 PAGE 3   
+
+ 115   3            A2_31dB =  1; //62db
+ 116   3            
+ 117   3            A3_1dB =  (Agc_Val - 62) & 0x01 ? 1 : 0;
+ 118   3            A3_2dB =  (Agc_Val - 62) & 0x01 ? 1 : 0;
+ 119   3            A3_4dB =  (Agc_Val - 62) & 0x01 ? 1 : 0;
+ 120   3            A3_8dB =  (Agc_Val - 62) & 0x01 ? 1 : 0;
+ 121   3            A3_16dB = (Agc_Val - 62) & 0x01 ? 1 : 0;        
+ 122   3          }
+ 123   2        }
+ 124   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    313    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
